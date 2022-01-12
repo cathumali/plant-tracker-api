@@ -21,75 +21,29 @@ class PlantController extends Controller
         return new PlantCollection(Plant::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePlantRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-
     public function store(StorePlantRequest $request)
     {
-        $plant = Plant::create($request->all());
-        
-        return response()->json([
-            'message' => 'Plant created successfully.', 
-            'data'  =>  new PlantResource($plant)
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Plant  $plant
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Plant $plant)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Plant  $plant
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Plant $plant)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePlantRequest  $request
-     * @param  \App\Models\Plant  $plant
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePlantRequest $request, Plant $plant)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Plant  $plant
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Plant $plant)
-    {
-        //
+        try {
+            $input = $request->all();
+    
+            if ($photo = $request->file('photo')) {
+                $destinationPath = 'photo/';
+                $plantImage = date('YmdHis') . "." . $photo->getClientOriginalExtension();
+                $request->merge(['photo' => $plantImage]);
+                $photo->move($destinationPath, $plantImage);
+                $input['photo'] = $destinationPath.$plantImage;
+            }
+            
+            $plant = Plant::create($input);
+            
+            return response()->json([
+                'code' => '200',
+                'message' => 'Plant created successfully.', 
+                'data'  =>  new PlantResource($plant)
+            ]);
+        }
+        catch (\Throwable $th) {
+            return response()->json([ "code" => '500', "message" => $th->getMessage() ], 500);
+        }
     }
 }

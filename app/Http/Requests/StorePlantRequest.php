@@ -26,7 +26,6 @@ class StorePlantRequest extends FormRequest
         return [
             'name' => 'max:50|unique:plants,name,'.$this->segment(2).',id',
             'species' => 'max:50|unique:plants,species,'.$this->segment(2).',id',
-            'photo' => 'max:50|unique:plants,photo,'.$this->segment(2).',id',
         ];
     }
 }
