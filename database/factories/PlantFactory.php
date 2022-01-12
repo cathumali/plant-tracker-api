@@ -16,8 +16,8 @@ class PlantFactory extends Factory
         return [
             'name' => $this->faker->firstName(),
             'species' => $this->faker->word(), 
-            'instructions' => $this->faker->randomHtml(2,3),
-            'photo' => $this->faker->imageUrl($width = 640, $height = 480) 
+            'instructions' => $this->faker->randomHtml(1,2),
+            'photo' => 'photo/plant.jpg'
         ];
     }
 }
