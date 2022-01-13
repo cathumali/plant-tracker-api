@@ -3,6 +3,8 @@ Plant tracker api
 Setup with Homestead
 - Please follow this link to run the project in homestead: 
     - https://laravel.com/docs/8.x/homestead#installation-and-setup
+- Once done setting up the database, run the following commands to migrate and seed data:
+    - php artisan migrate:fresh --seed
 - Sample base url: http://plant-tracker-api.test/
 
 Plant tracker app
