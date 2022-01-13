@@ -1,7 +1,9 @@
 Plant tracker api
 ---
-
-
+Setup with Homestead
+- Please follow this link to run the project in homestead: 
+    - https://laravel.com/docs/8.x/homestead#installation-and-setup
+- Sample base url: http://plant-tracker-api.test/
 
 Plant tracker app
 ---
